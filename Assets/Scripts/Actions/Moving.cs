@@ -19,11 +19,16 @@ public class Moving : MonoBehaviour, IAction
     //private Vector3 _destination;
     //private Vector3 _thisPosition;
     //도구 -> 옵션 -> C# -> 고급 -> 프로시저단위 줄 생성
-    void Start()
+    void Awake()
     {
         _agent = this.GetComponent<NavMeshAgent>();
         _animator = this.GetComponent<Animator>();
         _actionManager = this.GetComponent<ActionManager>();
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()

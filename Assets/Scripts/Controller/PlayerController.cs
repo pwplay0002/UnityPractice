@@ -8,10 +8,15 @@ public class PlayerController : MonoBehaviour
     private Moving _moving = null;
     private Attacking _attacking = null;
 
-    void Start()
+    private void Awake()
     {
         _moving = this.GetComponent<Moving>();
         _attacking = this.GetComponent<Attacking>();
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()

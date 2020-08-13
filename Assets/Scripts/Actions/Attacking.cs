@@ -20,11 +20,16 @@ public class Attacking : MonoBehaviour, IAction
     private Moving _moving = null;
     private Damage _target = null;
 
-    void Start()
+    void Awake()
     {
         _animator = this.GetComponent<Animator>();
         _moving = this.GetComponent<Moving>();
         _actionManager = this.GetComponent<ActionManager>();
+    }
+
+    void Start()
+    {
+
     }
 
     void Update()
@@ -34,7 +39,7 @@ public class Attacking : MonoBehaviour, IAction
 
         if(_target.Death == true)
         {
-            _animator.ResetTrigger("Attack");
+            _animator.ResetTrigger("Attack");//트리거 초기값(초기화)
             return;
         }
 
@@ -49,10 +54,16 @@ public class Attacking : MonoBehaviour, IAction
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(this.transform.position, _range);
+    }
+
     public void Begin(object obj)
     {
         Damage damage = obj as Damage;//obj를 Damage로 캐스팅이 가능하냐
-        Debug.Assert((damage == null), "Input Type : Damage");
+        Debug.Assert((damage != null), "Input Type : Damage");
 
         _actionManager.StartAction(this);
         _target = damage;
@@ -95,11 +106,16 @@ public class Attacking : MonoBehaviour, IAction
         return Vector2.Distance(a, b) < _range;
     }
 
-    private void Hit()
+    private void OnAttack()
     {
         if (_target == null)
             return;
 
         _target.Hitted(_power);
+    }
+
+    private void OnAttackEnd()
+    {
+        End();
     }
 }
