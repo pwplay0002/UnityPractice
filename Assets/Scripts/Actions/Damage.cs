@@ -35,6 +35,17 @@ public class Damage : MonoBehaviour
 
     public void Hitted(float power)//power :이걸로 hp를 깎음
     {
+        foreach (Material material in _materials)
+            material.color = Color.red;
+
         _animator.SetTrigger("Hit");
+
+        Invoke("RestoreMaterial", 0.7f);//MonoBehaviour안에 있는 함수로 함수이름을 넣으면 그 함수를 특정시간에 실행시켜준다.
+    }
+
+    private void RestoreMaterial()
+    {
+        foreach (Material material in _materials)
+            material.color = Color.white;//원래대로 되돌리기
     }
 }

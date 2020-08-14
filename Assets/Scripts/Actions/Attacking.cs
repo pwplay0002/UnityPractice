@@ -19,12 +19,14 @@ public class Attacking : MonoBehaviour, IAction
     private ActionManager _actionManager = null;
     private Moving _moving = null;
     private Damage _target = null;
+    private Damage _self = null;
 
     void Awake()
     {
         _animator = this.GetComponent<Animator>();
         _moving = this.GetComponent<Moving>();
         _actionManager = this.GetComponent<ActionManager>();
+        _self = this.GetComponent<Damage>();
     }
 
     void Start()
@@ -34,7 +36,8 @@ public class Attacking : MonoBehaviour, IAction
 
     void Update()
     {
-        if (_target == null)
+        if (_target == null) return;
+        if (_self == null)
             return;
 
         if(_target.Death == true)
@@ -93,7 +96,7 @@ public class Attacking : MonoBehaviour, IAction
 
         if (_time_sinces_last_attacked < _delay)
             return;
-
+        _animator.ResetTrigger("StopAttack");
         _animator.SetTrigger("Attack");
         _time_sinces_last_attacked = 0.0f;
     }
