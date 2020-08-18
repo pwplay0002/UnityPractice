@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PickUpWeapon : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Weapon _weapon = null;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.tag == "Player")
+        {
+            other.GetComponent<Attacking>().Equip(_weapon);
+            Destroy(this.gameObject);
+        }
     }
 }

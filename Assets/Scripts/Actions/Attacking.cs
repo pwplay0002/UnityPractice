@@ -21,6 +21,16 @@ public class Attacking : MonoBehaviour, IAction
     private Damage _target = null;
     private Damage _self = null;
 
+    [SerializeField]
+    private Weapon _initWeapon = null;//초기 무기 들고있을지
+    private Weapon _currentWeapon = null;
+
+    [SerializeField]
+    private Transform _rightHand = null;
+
+    [SerializeField]
+    private Transform _leftHand = null;
+
     void Awake()
     {
         _animator = this.GetComponent<Animator>();
@@ -31,7 +41,8 @@ public class Attacking : MonoBehaviour, IAction
 
     void Start()
     {
-
+        if (_initWeapon == null) return;
+        Equip(_initWeapon);
     }
 
     void Update()
@@ -72,6 +83,12 @@ public class Attacking : MonoBehaviour, IAction
         _target = damage;
 
         _time_sinces_last_attacked = _delay;
+    }
+
+    public void Equip(Weapon weapon)
+    {
+        _currentWeapon = weapon;
+        _currentWeapon.Spawn(_rightHand, _leftHand, _animator);
     }
 
     public void End()
