@@ -48,8 +48,7 @@ public class Attacking : MonoBehaviour, IAction
     void Update()
     {
         if (_target == null) return;
-        if (_self == null)
-            return;
+        if (_self == _target) return;
 
         if(_target.Death == true)
         {
