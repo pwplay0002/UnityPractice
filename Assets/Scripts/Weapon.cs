@@ -25,6 +25,21 @@ public class Weapon : ScriptableObject
     [SerializeField]
     private AnimatorOverrideController _override = null;
 
+    [SerializeField]
+    private Projectile _projectile = null;
+    public bool HasProjectile { get { return _projectile != null; } }
+
+    [SerializeField, Range(1.0f, 20.0f)]
+    private float _speed = 8.0f;
+
+    [SerializeField, Range(1.0f, 5.0f)]
+    private float _lifeTime = 3.0f;
+    public float LifeTime { set { _lifeTime = value; } }
+
+    [SerializeField]
+    private bool _bHoming = false;
+
+
     const string _weaponName = "Weapon";
 
     public void Spawn(Transform right, Transform left, Animator animator)
@@ -51,6 +66,19 @@ public class Weapon : ScriptableObject
 
         old.name = "DestroyWeapon";
         Destroy(old.gameObject);
+    }
+
+    public void LaunchProjectile(Transform right, Transform left, Damage damage)
+    {
+        Transform hand = null;
+        hand = _bRightHanded ? left : right;
+
+        Projectile projectile = Instantiate(_projectile, hand.position, Quaternion.identity);
+        projectile.SetTarget(damage, _damage);
+        projectile.Speed = _speed;
+        projectile.LifeTime = _lifeTime;
+        projectile.Homing = _bHoming;
+        projectile.Effect = _effect;
     }
 
 }

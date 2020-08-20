@@ -49,6 +49,7 @@ public class Attacking : MonoBehaviour, IAction
     {
         if (_target == null) return;
         if (_self == _target) return;
+        //TODO : 캐릭터가 죽거나 했으면 공격하지 않도록 바꿔야함.
 
         if(_target.Death == true)
         {
@@ -129,6 +130,11 @@ public class Attacking : MonoBehaviour, IAction
     {
         if (_target == null)
             return;
+
+        if (_currentWeapon.HasProjectile)
+            _currentWeapon.LaunchProjectile(_rightHand, _leftHand, _target);
+        else
+            _target.Hitted(_power);
 
         _target.Hitted(_power);
     }

@@ -17,4 +17,8 @@ MonoBehaviour:
   _damage: 10
   _range: 2
   _bRightHanded: 1
-  _override: {fileID: 0}
+  _override: {fileID: 22100000, guid: a223474c08c7b934a84065623b78c588, type: 2}
+  _projectile: {fileID: 0}
+  _speed: 8
+  _lifeTime: 3
+  _bHoming: 0
