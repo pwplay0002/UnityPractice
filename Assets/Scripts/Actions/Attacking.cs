@@ -7,7 +7,7 @@ public class Attacking : MonoBehaviour, IAction
     [SerializeField, Range(1.0f, 100.0f)]
     private float _power = 5.0f;
 
-    [SerializeField, Range(1.0f, 3.0f)]
+    [SerializeField, Range(1.0f, 50.0f)]
     private float _range = 2.0f;
 
     [SerializeField, Range(1.0f, 5.0f)]
@@ -49,7 +49,7 @@ public class Attacking : MonoBehaviour, IAction
     {
         if (_target == null) return;
         if (_self == _target) return;
-        //TODO : 캐릭터가 죽거나 했으면 공격하지 않도록 바꿔야함.
+        if (_self.Death == true) return;
 
         if(_target.Death == true)
         {

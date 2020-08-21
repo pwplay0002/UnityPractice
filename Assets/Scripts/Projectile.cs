@@ -27,6 +27,8 @@ public class Projectile : MonoBehaviour
 
     void Start()
     {
+        _spawnedEffect = Instantiate(_effect);
+        _spawnedEffect.transform.LookAt(_targetPos);
         this.transform.LookAt(_targetPos);
 
         Invoke("DestroyArrow", _lifeTime);//특정시간에 호출
